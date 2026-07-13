@@ -1,6 +1,6 @@
-# Safi Institute Credentials Portal
+# Credentials Portal
 
-An interactive student portal for **Safi Institute of Advanced Study** that authenticates users, verifies emails using real-time OTP codes, and automatically generates custom College IDs starting with `SIAZ`. Upon login, it compiles a landscape **Google AI Professional Certificate** PDF and dispatches it directly to the student's email inbox.
+An interactive student portal for the **Institute of Advanced Study** that authenticates users, verifies emails using real-time OTP codes, and automatically generates custom College IDs starting with `SIAZ`. Upon login, it compiles a landscape **Google AI Professional Certificate** PDF and dispatches it directly to the student's email inbox.
 
 ## Features
 
@@ -27,7 +27,7 @@ SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_USER=your_email@gmail.com
 SMTP_PASS=your_gmail_app_password
-FROM_EMAIL="Safi Registrar <your_email@gmail.com>"
+FROM_EMAIL="Registrar <your_email@gmail.com>"
 ```
 
 *Note: If you use Gmail, you must generate a 16-character **App Password** from your Google Account settings under Security. A normal password will be rejected by Google's SMTP servers.*

@@ -4,28 +4,28 @@
 
 // Seed default student database if not already present
 function initUserDatabase() {
-  if (!localStorage.getItem('safi_students')) {
+  if (!localStorage.getItem('college_students')) {
     const defaultStudents = {
-      'student@safi.edu.in': {
-        email: 'student@safi.edu.in',
+      'student@college.edu': {
+        email: 'student@college.edu',
         password: 'password123',
         name: 'Jane Doe',
         collegeId: 'SIAZ-2026-9041'
       }
     };
-    localStorage.setItem('safi_students', JSON.stringify(defaultStudents));
+    localStorage.setItem('college_students', JSON.stringify(defaultStudents));
   }
 }
 initUserDatabase();
 
 function getStudents() {
-  return JSON.parse(localStorage.getItem('safi_students') || '{}');
+  return JSON.parse(localStorage.getItem('college_students') || '{}');
 }
 
 function registerUser(email, password, name, collegeId) {
   const students = getStudents();
   students[email] = { email, password, name, collegeId };
-  localStorage.setItem('safi_students', JSON.stringify(students));
+  localStorage.setItem('college_students', JSON.stringify(students));
 }
 
 // Runtime State

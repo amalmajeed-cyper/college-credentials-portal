@@ -29,7 +29,7 @@ def send_otp_email(to_email, otp)
   smtp_port = (ENV['SMTP_PORT'] || 587).to_i
   smtp_user = ENV['SMTP_USER']
   smtp_pass = ENV['SMTP_PASS']
-  from_email = ENV['FROM_EMAIL'] || 'registrar@safi.edu.in'
+  from_email = ENV['FROM_EMAIL'] || 'registrar@college.edu'
 
   if !smtp_user || smtp_user.empty? || smtp_user.include?('your-email')
     raise "SMTP user credentials are not configured in the .env file."
@@ -38,19 +38,19 @@ def send_otp_email(to_email, otp)
   mailtext = <<~EOF
     From: #{from_email}
     To: #{to_email}
-    Subject: Verify Your Email - Safi Institute of Advanced Study
+    Subject: Verify Your Email - Institute of Advanced Study
     MIME-Version: 1.0
     Content-Type: text/html; charset="UTF-8"
 
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e1e4e8; border-radius: 12px; background-color: #ffffff;">
       <div style="text-align: center; border-bottom: 2px solid #3b82f6; padding-bottom: 15px; margin-bottom: 20px;">
-        <h2 style="color: #1e3a8a; margin: 0;">Safi Institute of Advanced Study</h2>
+        <h2 style="color: #1e3a8a; margin: 0;">Institute of Advanced Study</h2>
         <p style="color: #6b7280; font-size: 14px; margin: 5px 0 0 0;">Student Portal Email Verification</p>
       </div>
       
       <div style="padding: 10px 0; color: #374151; font-size: 16px; line-height: 1.6;">
         <p>Dear Student,</p>
-        <p>Thank you for initiating your account registration with the Safi Institute Student Credentials Portal. Please use the following 6-digit verification code to complete your sign-up:</p>
+        <p>Thank you for initiating your account registration with the Student Credentials Portal. Please use the following 6-digit verification code to complete your sign-up:</p>
         
         <div style="text-align: center; margin: 30px 0;">
           <span style="font-family: monospace; font-size: 32px; font-weight: bold; color: #f59e0b; background-color: #fef3c7; padding: 10px 30px; border-radius: 8px; letter-spacing: 5px; border: 1px dashed #f59e0b;">
@@ -62,7 +62,7 @@ def send_otp_email(to_email, otp)
       </div>
       
       <div style="border-top: 1px solid #e1e4e8; padding-top: 15px; margin-top: 30px; text-align: center; font-size: 12px; color: #9ca3af;">
-        <p>© 2026 Safi Institute of Advanced Study. All rights reserved.</p>
+        <p>© 2026 Institute of Advanced Study. All rights reserved.</p>
         <p>This is an automated system email. Please do not reply directly to this mail.</p>
       </div>
     </div>
@@ -81,18 +81,18 @@ def send_certificate_email(to_email, name, college_id, pdf_base64)
   smtp_port = (ENV['SMTP_PORT'] || 587).to_i
   smtp_user = ENV['SMTP_USER']
   smtp_pass = ENV['SMTP_PASS']
-  from_email = ENV['FROM_EMAIL'] || 'registrar@safi.edu.in'
+  from_email = ENV['FROM_EMAIL'] || 'registrar@college.edu'
 
   if !smtp_user || smtp_user.empty? || smtp_user.include?('your-email')
     raise "SMTP user credentials are not configured in the .env file."
   end
 
-  boundary = "SafiCertificateBoundaryLine12345"
+  boundary = "CertificateBoundaryLine12345"
 
   mailtext = <<~EOF
     From: #{from_email}
     To: #{to_email}
-    Subject: Your Google AI Professional Certificate - Safi Institute
+    Subject: Your Google AI Professional Certificate - Academic Portal
     MIME-Version: 1.0
     Content-Type: multipart/mixed; boundary="#{boundary}"
 
@@ -102,7 +102,7 @@ def send_certificate_email(to_email, name, college_id, pdf_base64)
 
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e1e4e8; border-radius: 12px; background-color: #ffffff;">
       <div style="text-align: center; border-bottom: 2px solid #3b82f6; padding-bottom: 15px; margin-bottom: 20px;">
-        <h2 style="color: #1e3a8a; margin: 0;">Safi Institute of Advanced Study</h2>
+        <h2 style="color: #1e3a8a; margin: 0;">Institute of Advanced Study</h2>
         <p style="color: #6b7280; font-size: 14px; margin: 5px 0 0 0;">Digital Credentials Dispatch</p>
       </div>
       
@@ -135,8 +135,8 @@ def send_certificate_email(to_email, name, college_id, pdf_base64)
       </div>
       
       <div style="border-top: 1px solid #e1e4e8; padding-top: 15px; margin-top: 30px; text-align: center; font-size: 12px; color: #9ca3af;">
-        <p>© 2026 Safi Institute of Advanced Study. All rights reserved.</p>
-        <p>Safi Institute of Advanced Study, Vazhayur, Malappuram, Kerala, India.</p>
+        <p>© 2026 Institute of Advanced Study. All rights reserved.</p>
+        <p>Institute of Advanced Study, Credentials Portal.</p>
       </div>
     </div>
 
@@ -242,7 +242,7 @@ trap 'INT' do
 end
 
 puts "=========================================================="
-puts "Safi Institute Portal Server successfully initialized (Ruby)"
+puts "College Portal Server successfully initialized (Ruby)"
 puts "Serving static credentials portal on http://localhost:#{port}"
 puts "Press Ctrl+C to terminate the server process."
 puts "=========================================================="
