@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Safi Institute of Advanced Study - Student Portal</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <!-- html2pdf.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- HEADER BAR -->
+    <header class="app-header">
+      <div class="logo">
+        <i class="fa-solid fa-graduation-cap header-icon"></i>
+        <span>SAFI <span class="light">INSTITUTE</span></span>
+      </div>
+      <div class="system-status">
+        <span class="pulse-indicator"></span>
+        <span class="status-text">Safi Server Online</span>
+      </div>
+    </header>
+
+    <!-- PANEL 1: LOGIN CARD -->
+    <section id="login-section" class="panel-section active">
+      <div class="glass-card">
+        
+        <!-- Loading Overlay -->
+        <div id="login-overlay" class="sending-overlay">
+          <div class="spinner"></div>
+          <span>Verifying credentials...</span>
+        </div>
+
+        <div class="card-header">
+          <h2>Student Portal</h2>
+          <p>Sign in to Safi Institute of Advanced study Portal</p>
+        </div>
+        
+        <div id="login-error-banner" class="validation-banner error" style="display: none;">
+          <i class="fa-solid fa-triangle-exclamation"></i> <span class="message"></span>
+        </div>
+
+        <div id="login-success-banner" class="validation-banner success" style="display: none;">
+          <i class="fa-solid fa-circle-check"></i> <span class="message"></span>
+        </div>
+
+        <form id="login-form">
+          <div class="input-group">
+            <input type="email" id="login-email" required placeholder=" ">
+            <label for="login-email"><i class="fa-solid fa-envelope"></i> Institutional Email</label>
+            <span class="bar"></span>
+          </div>
+          
+          <div class="input-group">
+            <input type="password" id="login-password" required placeholder=" ">
+            <label for="login-password"><i class="fa-solid fa-lock"></i> Password</label>
+            <span class="bar"></span>
+          </div>
+
+          <div class="form-options">
+            <label class="checkbox-container">
+              <input type="checkbox" checked>
+              <span class="checkmark"></span>
+              Remember active session
+            </label>
+            <a href="#" class="forgot-link">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="primary-btn glow-effect">
+            <span>Log In <i class="fa-solid fa-arrow-right-to-bracket"></i></span>
+          </button>
+        </form>
+
+        <div class="card-footer">
+          <p>Don't have an account? <a href="#" id="go-to-signup-btn">Sign Up</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANEL 2: SIGN UP CARD -->
+    <section id="signup-section" class="panel-section">
+      <div class="glass-card">
+        
+        <!-- Loading Overlay -->
+        <div id="signup-overlay" class="sending-overlay">
+          <div class="spinner"></div>
+          <span>Sending verification OTP...</span>
+        </div>
+
+        <div class="card-header">
+          <h2>Sign Up</h2>
+          <p>Register your account with Safi Institute</p>
+        </div>
+
+        <div id="signup-error-banner" class="validation-banner error" style="display: none;">
+          <i class="fa-solid fa-triangle-exclamation"></i> <span class="message"></span>
+        </div>
+
+        <form id="signup-form">
+          <div class="input-group">
+            <input type="email" id="signup-email" required placeholder=" ">
+            <label for="signup-email"><i class="fa-solid fa-envelope"></i> Email Address</label>
+            <span class="bar"></span>
+          </div>
+
+          <div class="input-group">
+            <input type="password" id="signup-password" required placeholder=" ">
+            <label for="signup-password"><i class="fa-solid fa-lock"></i> Password</label>
+            <span class="bar"></span>
+          </div>
+
+          <div class="input-group">
+            <input type="password" id="signup-confirm-password" required placeholder=" ">
+            <label for="signup-confirm-password"><i class="fa-solid fa-shield"></i> Confirm Password</label>
+            <span class="bar"></span>
+          </div>
+
+          <button type="submit" class="primary-btn glow-effect">
+            <span>Send OTP Code <i class="fa-solid fa-paper-plane"></i></span>
+          </button>
+        </form>
+
+        <div class="card-footer">
+          <p>Already have an account? <a href="#" id="go-to-login-btn">Log In</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANEL 3: OTP VERIFICATION CARD -->
+    <section id="otp-section" class="panel-section">
+      <div class="glass-card">
+        
+        <!-- Loading Overlay -->
+        <div id="otp-overlay" class="sending-overlay">
+          <div class="spinner"></div>
+          <span>Verifying OTP code...</span>
+        </div>
+
+        <div class="card-header">
+          <h2>Email Verification</h2>
+          <p>Enter the 6-digit OTP code sent to your real email inbox</p>
+          <div class="email-sent-badge" id="otp-recipient-label">student@email.com</div>
+        </div>
+
+        <div id="otp-error-banner" class="validation-banner error" style="display: none;">
+          <i class="fa-solid fa-triangle-exclamation"></i> <span class="message"></span>
+        </div>
+
+        <form id="otp-form">
+          <div class="otp-inputs-wrapper">
+            <input type="text" id="otp-input" class="otp-single-field" maxlength="6" autocomplete="off" placeholder="••••••" required>
+          </div>
+
+          <button type="submit" class="primary-btn glow-effect">
+            <span>Verify & Authenticate <i class="fa-solid fa-shield-check"></i></span>
+          </button>
+        </form>
+
+        <div class="card-footer">
+          <p>Didn't receive the email? <a href="#" id="resend-otp-btn">Resend OTP Code</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANEL 4: NAME INPUT SCREEN -->
+    <section id="profile-section" class="panel-section">
+      <div class="glass-card">
+        
+        <!-- Loading Overlay -->
+        <div id="profile-overlay" class="sending-overlay">
+          <div class="spinner"></div>
+          <span>Initializing profile...</span>
+        </div>
+
+        <div class="card-header">
+          <h2>Student Profile</h2>
+          <p>Set up your profile name to register. Your College ID will be generated automatically.</p>
+        </div>
+
+        <form id="profile-form">
+          <div class="input-group">
+            <input type="text" id="profile-name" required placeholder=" ">
+            <label for="profile-name"><i class="fa-solid fa-user"></i> Full Name (as on certificate)</label>
+            <span class="bar"></span>
+          </div>
+
+          <button type="submit" class="primary-btn glow-effect">
+            <span>Generate College ID <i class="fa-solid fa-address-card"></i></span>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- PANEL 5: SIGN UP SUCCESS -->
+    <section id="success-section" class="panel-section">
+      <div class="glass-card success-card">
+        <div class="success-icon-wrapper">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+        
+        <div class="card-header">
+          <h2>Registration Completed!</h2>
+          <p>Welcome to Safi Institute of Advanced study. Your credentials have been initialized.</p>
+        </div>
+
+        <div class="generated-id-box">
+          <span class="id-label">Generated College ID</span>
+          <span class="id-value" id="success-college-id">SIAZ-2026-0000</span>
+        </div>
+
+        <button id="success-proceed-btn" class="primary-btn glow-effect">
+          <span>Proceed to Sign In <i class="fa-solid fa-right-to-bracket"></i></span>
+        </button>
+      </div>
+    </section>
+
+    <!-- PANEL 6: DASHBOARD & DISPATCH STATUS -->
+    <section id="dashboard-section" class="panel-section">
+      <div class="dashboard-grid">
+        
+        <!-- LEFT PANEL: Dispatch & Status Tracker -->
+        <div class="dashboard-card status-card">
+          <div class="card-title">
+            <i class="fa-solid fa-satellite-dish"></i>
+            <h3>Credential Server Status</h3>
+          </div>
+          
+          <div class="student-profile-summary">
+            <div class="avatar">
+              <i class="fa-solid fa-user-graduate"></i>
+            </div>
+            <div class="student-info">
+              <h4 id="disp-student-name">Loading...</h4>
+              <p id="disp-student-id">ID: Loading...</p>
+            </div>
+          </div>
+
+          <div class="progress-status-container">
+            <div class="circular-progress">
+              <svg class="progress-ring" width="120" height="120">
+                <circle class="progress-ring__circle-bg" stroke="rgba(255,255,255,0.05)" stroke-width="8" fill="transparent" r="50" cx="60" cy="60"/>
+                <circle class="progress-ring__circle" stroke="#d4af37" stroke-width="8" fill="transparent" r="50" cx="60" cy="60"/>
+              </svg>
+              <div class="progress-value">0%</div>
+            </div>
+            
+            <div class="status-logs">
+              <div class="log-item" id="log-1">
+                <i class="fa-solid fa-circle-notch fa-spin icon"></i>
+                <span>Verifying course completion...</span>
+              </div>
+              <div class="log-item" id="log-2">
+                <i class="fa-solid fa-circle-notch fa-spin icon"></i>
+                <span>Compiling custom PDF certificate...</span>
+              </div>
+              <div class="log-item" id="log-3">
+                <i class="fa-solid fa-circle-notch fa-spin icon"></i>
+                <span>Signing by Sundar Pichai (Authorized Representative)...</span>
+              </div>
+              <div class="log-item" id="log-4">
+                <i class="fa-solid fa-circle-notch fa-spin icon"></i>
+                <span>Transmitting PDF to your real email inbox...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT PANEL: Dispatch Confirmation -->
+        <div class="dashboard-card dispatch-confirmation-card">
+          
+          <!-- Waiting State (visible during generation) -->
+          <div id="dispatch-waiting-state" class="empty-inbox">
+            <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 3rem; color: var(--accent-gold); margin-bottom: 15px;"></i>
+            <p>Processing Academic Credential...</p>
+            <span class="sub">Logs show generation process in progress.</span>
+          </div>
+
+          <!-- Success State (hidden initially, reveals after sending is complete) -->
+          <div id="dispatch-success-state" class="delivery-success-wrapper" style="display: none;">
+            <div class="delivery-icon-circle">
+              <i class="fa-solid fa-envelope-circle-check"></i>
+            </div>
+            <h4>Certificate Dispatched!</h4>
+            <p>Your official academic certificate has been emailed to <strong id="sent-email-address">your-email@student.com</strong>.</p>
+            <p>Please check your inbox (and spam folder) for the email from <strong>registrar@safi.edu.in</strong> containing the PDF attachment.</p>
+            
+            <div class="dashboard-btn-group">
+              <button id="download-certificate-btn" class="primary-btn glow-effect">
+                <span>Download Backup Copy <i class="fa-solid fa-file-arrow-down"></i></span>
+              </button>
+              <button id="dashboard-logout-btn" class="secondary-btn">
+                <span>Log Out of Portal <i class="fa-solid fa-power-off"></i></span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <!-- CERTIFICATE CONTAINER FOR PDF GENERATION (Hidden off-screen) -->
+  <div class="certificate-wrapper-container">
+    <div id="google-ai-certificate" class="certificate-canvas-container">
+      
+      <!-- Outer Double Border -->
+      <div class="cert-outer-border">
+        <div class="cert-inner-border">
+          
+          <!-- Google Color Stripes at the Top -->
+          <div class="google-stripes">
+            <div class="stripe blue"></div>
+            <div class="stripe red"></div>
+            <div class="stripe yellow"></div>
+            <div class="stripe green"></div>
+          </div>
+
+          <!-- Certificate Content -->
+          <div class="cert-body">
+            
+            <h1 class="cert-title">GOOGLE AI PROFESSIONAL CERTIFICATE</h1>
+            
+            <p class="cert-intro">This certificate is proudly presented to</p>
+            
+            <!-- Recipient Name Section -->
+            <div class="cert-recipient-container">
+              <div class="cert-recipient-name" id="cert-name">JANE DOE</div>
+              <div class="cert-name-underline"></div>
+            </div>
+
+            <!-- Program Description -->
+            <p class="cert-description">
+              for successfully completing all requirements, advanced coursework, and practical assessments<br>
+              prescribed for the professional tier program in
+            </p>
+
+            <h2 class="cert-program">Artificial Intelligence Professional Certification</h2>
+
+            <!-- Signatures and Details Footer -->
+            <div class="cert-footer">
+              
+              <!-- Date Column -->
+              <div class="cert-footer-col">
+                <div class="cert-value" id="cert-date">8 July 2026</div>
+                <div class="cert-underline"></div>
+                <div class="cert-label">Date of Issuance</div>
+              </div>
+
+              <!-- Certificate ID Column -->
+              <div class="cert-footer-col">
+                <div class="cert-value" id="cert-id">SIAZ-2026-0000</div>
+                <div class="cert-underline"></div>
+                <div class="cert-label">Certificate ID Number</div>
+              </div>
+
+              <!-- Signature Column -->
+              <div class="cert-footer-col">
+                <div class="cert-signature">Sundar Pichai</div>
+                <div class="cert-underline"></div>
+                <div class="cert-label">Authorized Representative</div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Main JavaScript File -->
+  <script src="app.js"></script>
+</body>
+</html>

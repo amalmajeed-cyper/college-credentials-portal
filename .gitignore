@@ -1,0 +1,6 @@
+# Ignore local configuration files containing credentials
+.env
+
+# Ignore system files
+.DS_Store
+*.log

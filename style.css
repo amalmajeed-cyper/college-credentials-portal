@@ -1,0 +1,1012 @@
+/* ==========================================================================
+   DESIGN SYSTEM & SCHOLASTIC VARIABLES
+   ========================================================================== */
+:root {
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Outfit', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+  --font-signature: 'Alex Brush', cursive;
+
+  /* Academic Color Palette */
+  --bg-primary: #0a0e1a;
+  --bg-card: rgba(10, 20, 42, 0.78);
+  --bg-card-hover: rgba(15, 28, 56, 0.88);
+  --border-color: rgba(212, 175, 55, 0.15); /* Gold outline hints */
+  --border-focus: #c5a059; /* Bright academic gold */
+  
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  
+  /* Accent Colors */
+  --accent-gold: #d4af37;
+  --accent-blue: #3b82f6;
+  --accent-red: #ef4444;
+  --accent-green: #10b981;
+  --accent-glow: rgba(212, 175, 55, 0.2);
+
+  /* Transitions */
+  --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: all 0.15s ease;
+}
+
+/* ==========================================================================
+   RESET & ACADEMIC COVER BACKGROUND
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  /* Dark academic glass gradient over the generated campus image */
+  background-image: linear-gradient(135deg, rgba(8, 12, 26, 0.82) 0%, rgba(3, 5, 12, 0.93) 100%), url('college_background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: var(--text-primary);
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ==========================================================================
+   APP CONTAINER & SCHOLASTIC HEADER
+   ========================================================================== */
+.app-container {
+  width: 100%;
+  max-width: 900px;
+  min-height: 80vh;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  padding: 20px;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  animation: fadeInDown 0.8s ease;
+}
+
+.app-header .logo {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.3rem;
+  letter-spacing: 2.5px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.app-header .logo .light {
+  font-weight: 300;
+  color: var(--accent-gold);
+}
+
+.header-icon {
+  font-size: 1.7rem;
+  background: linear-gradient(135deg, var(--accent-gold), #fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.3));
+}
+
+.system-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.pulse-indicator {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-green);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--accent-green);
+  animation: pulse 2s infinite;
+}
+
+.status-text {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   PANEL SECTIONS (Transitions)
+   ========================================================================== */
+.panel-section {
+  display: none;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: var(--transition-smooth);
+  flex-grow: 1;
+}
+
+.panel-section.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   GLASS SCHOLASTIC CARDS
+   ========================================================================== */
+.glass-card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--bg-card);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(212, 175, 55, 0.05);
+  animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+/* Gold crest accents for cards */
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+}
+
+.card-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.card-header h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+  background: linear-gradient(to right, #ffffff, var(--text-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card-header p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.email-sent-badge {
+  display: inline-block;
+  margin-top: 10px;
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  color: var(--accent-gold);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Validation Alerts */
+.validation-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin-bottom: 25px;
+  animation: slideInDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.validation-banner.error {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+}
+
+.validation-banner.success {
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  color: #6ee7b7;
+}
+
+/* Form floating input textfields */
+.input-group {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 14px 16px 14px 44px;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  outline: none;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-family: var(--font-sans);
+  transition: var(--transition-smooth);
+}
+
+.input-group label {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  pointer-events: none;
+  transition: var(--transition-smooth);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.input-group label i {
+  font-size: 0.95rem;
+  transition: var(--transition-smooth);
+}
+
+.input-group input:focus ~ label,
+.input-group input:not(:placeholder-shown) ~ label {
+  top: -10px;
+  left: 10px;
+  font-size: 0.78rem;
+  padding: 0 6px;
+  background: #0f1527;
+  color: var(--accent-gold);
+  border-radius: 4px;
+}
+
+.input-group input:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 15px var(--accent-glow);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.input-group input:focus ~ label i {
+  color: var(--accent-gold);
+}
+
+/* OTP Code Input Monospace */
+.otp-inputs-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.otp-single-field {
+  width: 200px;
+  padding: 14px;
+  font-family: monospace;
+  font-size: 1.8rem;
+  letter-spacing: 8px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  color: var(--text-primary);
+  outline: none;
+  transition: var(--transition-smooth);
+}
+
+.otp-single-field:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 20px var(--accent-glow);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Success Profile presentation card */
+.success-card {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.success-icon-wrapper {
+  width: 72px;
+  height: 72px;
+  background: rgba(16, 185, 129, 0.08);
+  border: 2px solid rgba(16, 185, 129, 0.3);
+  color: var(--accent-green);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  animation: pulseGreen 2.5s infinite;
+}
+
+.generated-id-box {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.01);
+  border: 1.5px dashed rgba(212, 175, 55, 0.4);
+  border-radius: 16px;
+  padding: 20px;
+  margin: 10px 0 30px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.generated-id-box .id-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.generated-id-box .id-value {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+}
+
+/* Form checkboxes and helper links */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  font-size: 0.85rem;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 25px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  user-select: none;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  transition: var(--transition-fast);
+}
+
+.checkbox-container:hover input ~ .checkmark {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.checkbox-container input:checked ~ .checkmark {
+  background-color: var(--accent-gold);
+  border-color: var(--accent-gold);
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox-container .checkmark:after {
+  left: 6px;
+  top: 2px;
+  width: 4px;
+  height: 9px;
+  border: solid #090e1a;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.forgot-link {
+  color: var(--accent-gold);
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+/* Main Academic Action Button */
+.primary-btn {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--accent-gold), #b3922e);
+  border: none;
+  border-radius: 12px;
+  color: #0d1220;
+  font-size: 0.98rem;
+  font-weight: 700;
+  font-family: var(--font-display);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.primary-btn span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.35);
+}
+
+.primary-btn:active {
+  transform: translateY(0);
+}
+
+.card-footer {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.card-footer a {
+  color: var(--accent-gold);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.card-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Loader Spinner Overlay for API Requests */
+.sending-overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 20, 42, 0.92);
+  border-radius: 24px;
+  z-index: 99;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+  animation: fadeIn 0.3s ease;
+}
+
+.sending-overlay.active {
+  display: flex;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px stroke rgba(255,255,255,0.05);
+  border-left-color: var(--accent-gold);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.sending-overlay span {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   ACADEMIC WORKSPACE DASHBOARD
+   ========================================================================== */
+#dashboard-section.active {
+  display: block;
+  width: 100%;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  width: 100%;
+}
+
+.dashboard-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 15px;
+}
+
+.card-title i {
+  font-size: 1.3rem;
+  color: var(--accent-gold);
+}
+
+.card-title h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+}
+
+/* Profile summary card block */
+.student-profile-summary {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 15px;
+  margin-bottom: 30px;
+}
+
+.student-profile-summary .avatar {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(255, 255, 255, 0.05));
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--accent-gold);
+  font-size: 1.3rem;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.student-info h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.student-info p {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.progress-status-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  flex-grow: 1;
+}
+
+.circular-progress {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.progress-ring {
+  transform: rotate(-90deg);
+}
+
+.progress-ring__circle {
+  stroke-dasharray: 314.16;
+  stroke-dashoffset: 314.16;
+  transition: stroke-dashoffset 0.3s;
+  stroke-linecap: round;
+}
+
+.progress-value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.status-logs {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.log-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  transition: var(--transition-smooth);
+}
+
+.log-item .icon {
+  font-size: 0.92rem;
+  width: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.log-item.active {
+  color: var(--accent-gold);
+}
+
+.log-item.complete {
+  color: var(--accent-green);
+}
+
+.log-item.complete .icon {
+  color: var(--accent-green);
+}
+
+/* Dispatch Confirmation Card Block */
+.dispatch-confirmation-card {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.delivery-success-wrapper {
+  margin-top: 15px;
+}
+
+.delivery-icon-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  color: var(--accent-gold);
+  font-size: 2.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 20px auto;
+  animation: pulseGold 2.5s infinite;
+}
+
+.delivery-success-wrapper h4 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.delivery-success-wrapper p {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin-bottom: 25px;
+}
+
+.delivery-success-wrapper p strong {
+  color: var(--accent-gold);
+}
+
+.dashboard-btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.secondary-btn {
+  width: 100%;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: var(--font-display);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition-smooth);
+}
+
+.secondary-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ==========================================================================
+   HIDDEN CERTIFICATE TEMPLATE & PDF STYLING
+   ========================================================================== */
+.certificate-wrapper-container {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  width: 11in;
+  height: 8.5in;
+}
+
+.certificate-canvas-container {
+  width: 11in;
+  height: 8.5in;
+  background-color: #ffffff;
+  padding: 0.4in;
+  box-sizing: border-box;
+}
+
+.cert-outer-border {
+  border: 1px solid #c8cbd0;
+  padding: 0.08in;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.cert-inner-border {
+  border: 1px solid #e1e4e8;
+  height: 100%;
+  padding: 0.5in 0.6in;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.google-stripes {
+  display: flex;
+  width: 1.8in;
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.4in;
+}
+
+.google-stripes .stripe {
+  flex-grow: 1;
+  height: 100%;
+}
+
+.google-stripes .stripe.blue { background-color: #4285f4; }
+.google-stripes .stripe.red { background-color: #ea4335; }
+.google-stripes .stripe.yellow { background-color: #fbbc05; }
+.google-stripes .stripe.green { background-color: #34a853; }
+
+.cert-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.cert-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 32px;
+  letter-spacing: 0.5px;
+  color: #1a73e8;
+  margin-bottom: 0.35in;
+}
+
+.cert-intro {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 18px;
+  color: #4b5563;
+  margin-bottom: 0.45in;
+}
+
+.cert-recipient-container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0.45in;
+}
+
+.cert-recipient-name {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 36px;
+  letter-spacing: 0.5px;
+  color: #1f2937;
+  text-transform: capitalize;
+  text-align: center;
+  padding: 0 10px 5px 10px;
+  min-width: 300px;
+}
+
+.cert-name-underline {
+  width: 100%;
+  height: 1.5px;
+  background-color: #000000;
+}
+
+.cert-description {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 16px;
+  color: #4b5563;
+  line-height: 1.7;
+  margin-bottom: 0.3in;
+}
+
+.cert-program {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 22px;
+  color: #111827;
+  margin-bottom: 0.6in;
+}
+
+.cert-footer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: auto;
+}
+
+.cert-footer-col {
+  width: 2.2in;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cert-value {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  color: #1f2937;
+  font-weight: 500;
+  height: 35px;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 3px;
+}
+
+.cert-signature {
+  font-family: var(--font-signature);
+  font-size: 28px;
+  color: #1a365d;
+  height: 35px;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 3px;
+}
+
+.cert-underline {
+  width: 100%;
+  height: 1px;
+  background-color: #9ca3af;
+  margin-bottom: 6px;
+}
+
+.cert-label {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 400;
+}
+
+/* ==========================================================================
+   ANIMATIONS
+   ========================================================================== */
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.4; }
+  50% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(0.95); opacity: 0.4; }
+}
+
+@keyframes pulseGreen {
+  0% { transform: scale(0.96); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+  70% { transform: scale(1); box-shadow: 0 0 0 12px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.96); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+@keyframes pulseGold {
+  0% { transform: scale(0.96); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
+  70% { transform: scale(1); box-shadow: 0 0 0 12px rgba(212, 175, 55, 0); }
+  100% { transform: scale(0.96); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInDown {
+  from { opacity: 0; transform: translateY(-15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   RESPONSIVENESS
+   ========================================================================== */
+@media (max-width: 820px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .glass-card {
+    padding: 25px;
+  }
+  .app-header {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
