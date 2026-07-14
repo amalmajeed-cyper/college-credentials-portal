@@ -70,7 +70,7 @@ def send_otp_email(to_email, otp)
 
   smtp = Net::SMTP.new(smtp_host, smtp_port)
   if smtp_port == 465
-    smtp.tls = true
+    smtp.enable_tls if smtp.respond_to?(:enable_tls)
   else
     smtp.enable_starttls if smtp.respond_to?(:enable_starttls)
   end
@@ -155,7 +155,7 @@ def send_certificate_email(to_email, name, college_id, pdf_base64)
 
   smtp = Net::SMTP.new(smtp_host, smtp_port)
   if smtp_port == 465
-    smtp.tls = true
+    smtp.enable_tls if smtp.respond_to?(:enable_tls)
   else
     smtp.enable_starttls if smtp.respond_to?(:enable_starttls)
   end
