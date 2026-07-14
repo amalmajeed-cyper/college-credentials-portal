@@ -1010,3 +1010,105 @@ body {
     gap: 15px;
   }
 }
+
+/* ==========================================================================
+   SIMULATED MAILBOX STYLES (DEMO MODE)
+   ========================================================================== */
+.mock-mailbox-card {
+  width: 100%;
+  max-width: 450px;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: 16px;
+  margin-top: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  animation: fadeInUp 0.5s ease;
+}
+
+.mailbox-header {
+  background: rgba(245, 158, 11, 0.1);
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(245, 158, 11, 0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mailbox-title {
+  color: var(--accent-gold);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mailbox-status {
+  background: var(--accent-gold);
+  color: var(--primary-navy);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+
+.mailbox-body {
+  padding: 20px;
+}
+
+.email-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 15px;
+}
+
+.email-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin-bottom: 8px;
+}
+
+.email-sender strong {
+  color: #f1f5f9;
+}
+
+.email-time {
+  color: var(--accent-gold);
+}
+
+.email-subject {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #f8fafc;
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 8px;
+}
+
+.email-content {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #cbd5e1;
+}
+
+.email-otp-display {
+  display: inline-block;
+  font-family: monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px dashed var(--accent-gold);
+  padding: 6px 16px;
+  border-radius: 6px;
+  letter-spacing: 2px;
+}

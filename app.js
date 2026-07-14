@@ -160,27 +160,17 @@ signupForm.addEventListener('submit', (e) => {
   
   showOverlay('signup-overlay');
   
-  // Post OTP payload to Node.js backend
-  fetch('/api/send-otp', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, otp })
-  })
-  .then(res => res.json())
-  .then(data => {
+  // Simulate network delay for verification code delivery
+  setTimeout(() => {
     hideOverlay('signup-overlay');
-    if (data.success) {
-      document.getElementById('otp-recipient-label').textContent = email;
-      switchPanel(signupSection, otpSection);
-    } else {
-      showBanner('signup-error-banner', data.error || 'Server failed to send OTP.');
-    }
-  })
-  .catch(err => {
-    hideOverlay('signup-overlay');
-    showBanner('signup-error-banner', 'Connection error. Verify that the backend server is running.');
-    console.error(err);
-  });
+    document.getElementById('otp-recipient-label').textContent = email;
+    
+    // Set the OTP in our simulated browser mailbox and display it
+    document.getElementById('mailbox-otp-value').textContent = otp;
+    document.getElementById('mock-mailbox').style.display = 'block';
+    
+    switchPanel(signupSection, otpSection);
+  }, 1000);
 });
 
 // 3. OTP VERIFICATION SUBMIT
@@ -215,28 +205,18 @@ document.getElementById('resend-otp-btn').addEventListener('click', (e) => {
   
   showOverlay('otp-overlay');
   
-  fetch('/api/send-otp', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: state.tempSignup.email, otp })
-  })
-  .then(res => res.json())
-  .then(data => {
+  setTimeout(() => {
     hideOverlay('otp-overlay');
-    if (data.success) {
-      showBanner('otp-error-banner', 'A new verification code has been sent to your email.');
-      document.getElementById('otp-error-banner').className = 'validation-banner success';
-      setTimeout(() => {
-        document.getElementById('otp-error-banner').className = 'validation-banner error';
-      }, 3000);
-    } else {
-      showBanner('otp-error-banner', data.error || 'Failed to resend OTP.');
-    }
-  })
-  .catch(err => {
-    hideOverlay('otp-overlay');
-    showBanner('otp-error-banner', 'Connection error resending verification code.');
-  });
+    
+    // Update the OTP in the simulated browser mailbox
+    document.getElementById('mailbox-otp-value').textContent = otp;
+    
+    showBanner('otp-error-banner', 'A new verification code has been simulated.');
+    document.getElementById('otp-error-banner').className = 'validation-banner success';
+    setTimeout(() => {
+      document.getElementById('otp-error-banner').className = 'validation-banner error';
+    }, 3000);
+  }, 1000);
 });
 
 // 4. PROFILE NAME SUBMIT (AUTO-GENERATES ID)
@@ -391,49 +371,18 @@ function compileAndSendCertificatePDF() {
     jsPDF:        { unit: 'in', format: 'letter', orientation: 'landscape' }
   };
 
-  // Compile element to PDF raw blob
+  // Compile element and download as PDF directly
   html2pdf()
     .set(opt)
     .from(element)
-    .outputPdf('blob')
-    .then(async (pdfBlob) => {
-      // Convert Blob to Base64 String
-      const reader = new FileReader();
-      reader.readAsDataURL(pdfBlob);
-      reader.onloadend = async () => {
-        const base64data = reader.result.split(',')[1];
-        
-        try {
-          const response = await fetch('/api/send-certificate', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              email: state.currentUser.email,
-              name: state.currentUser.name,
-              collegeId: state.currentUser.collegeId,
-              pdfBase64: base64data
-            })
-          });
-          
-          const data = await response.json();
-          
-          if (data.success) {
-            // Success State visual transition
-            document.getElementById('sent-email-address').textContent = state.currentUser.email;
-            document.getElementById('dispatch-waiting-state').style.display = 'none';
-            document.getElementById('dispatch-success-state').style.display = 'block';
-          } else {
-            alert('Email Dispatch Failed: ' + (data.error || 'Check SMTP configurations on the backend server.'));
-            console.error(data.error);
-          }
-        } catch (error) {
-          alert('Network Connection Error: Could not reach the email server backend.');
-          console.error(error);
-        }
-      };
+    .save()
+    .then(() => {
+      // Transition to success state immediately
+      document.getElementById('dispatch-waiting-state').style.display = 'none';
+      document.getElementById('dispatch-success-state').style.display = 'block';
     })
     .catch((error) => {
-      alert('PDF Compilation Error.');
+      alert('PDF Compilation Error: ' + error.message);
       console.error(error);
     });
 }

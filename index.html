@@ -170,6 +170,29 @@
           <p>Didn't receive the email? <a href="#" id="resend-otp-btn">Resend OTP Code</a></p>
         </div>
       </div>
+
+      <!-- Mock Mailbox Widget -->
+      <div id="mock-mailbox" class="mock-mailbox-card" style="display: none;">
+        <div class="mailbox-header">
+          <span class="mailbox-title"><i class="fa-solid fa-inbox"></i> Simulated Student Mailbox (Demo Mode)</span>
+          <span class="mailbox-status">1 New Message</span>
+        </div>
+        <div class="mailbox-body">
+          <div class="email-item">
+            <div class="email-meta">
+              <span class="email-sender">From: <strong>Registrar &lt;registrar@college.edu&gt;</strong></span>
+              <span class="email-time">Just now</span>
+            </div>
+            <div class="email-subject">Verify Your Email - Student Portal</div>
+            <div class="email-content">
+              Dear Student,<br><br>
+              Thank you for initiating your account registration. Please use the following 6-digit verification code to complete your sign-up:<br><br>
+              <div class="email-otp-display" id="mailbox-otp-value">123456</div><br><br>
+              This is a simulated mailbox designed for demonstration purposes on GitHub Pages.
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- PANEL 4: NAME INPUT SCREEN -->
@@ -290,9 +313,9 @@
             <div class="delivery-icon-circle">
               <i class="fa-solid fa-envelope-circle-check"></i>
             </div>
-            <h4>Certificate Dispatched!</h4>
-            <p>Your official academic certificate has been emailed to <strong id="sent-email-address">your-email@student.com</strong>.</p>
-            <p>Please check your inbox (and spam folder) for the email from <strong>registrar@college.edu</strong> containing the PDF attachment.</p>
+            <h4>Certificate Generated!</h4>
+            <p>Your official academic certificate has been successfully compiled and downloaded to your device.</p>
+            <p>You can also use the button below to download another copy at any time.</p>
             
             <div class="dashboard-btn-group">
               <button id="download-certificate-btn" class="primary-btn glow-effect">
