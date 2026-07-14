@@ -208,7 +208,7 @@ class ApiServlet < WEBrick::HTTPServlet::AbstractServlet
     rescue => e
       puts "Server Error: #{e.message}"
       puts e.backtrace.join("\n")
-      res.status = 500
+      res.status = 200
       error_msg = e.message.to_s.force_encoding('UTF-8').scrub
       res.body = { success: false, error: error_msg }.to_json
     end
