@@ -6,8 +6,8 @@
 function initUserDatabase() {
   if (!localStorage.getItem('college_students')) {
     const defaultStudents = {
-      'student@college.edu': {
-        email: 'student@college.edu',
+      'student@sias.edu.in': {
+        email: 'student@sias.edu.in',
         password: 'password123',
         name: 'Jane Doe',
         collegeId: 'SIAZ-2026-9041'
