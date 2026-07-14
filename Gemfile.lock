@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    base64 (0.3.0)
     net-protocol (0.2.2)
       timeout
     net-smtp (0.5.1)
@@ -12,5 +13,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  base64
   net-smtp
   webrick
