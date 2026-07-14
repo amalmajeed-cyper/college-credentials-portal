@@ -218,9 +218,43 @@ class ApiServlet < WEBrick::HTTPServlet::AbstractServlet
   def do_OPTIONS(req, res)
     res.status = 204
     res['Access-Control-Allow-Origin'] = '*'
-    res['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
+    res['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
     res['Access-Control-Allow-Headers'] = 'Content-Type'
     res.body = ''
+  end
+
+  # Secure Diagnostics GET Endpoint
+  def do_GET(req, res)
+    res.content_type = 'application/json'
+    res['Access-Control-Allow-Origin'] = '*'
+    
+    if req.path == '/api/diagnose'
+      env_path = File.join(Dir.pwd, '.env')
+      env_exists = File.exist?(env_path)
+      
+      smtp_host = ENV['SMTP_HOST']
+      smtp_port = ENV['SMTP_PORT']
+      smtp_user = ENV['SMTP_USER']
+      smtp_pass = ENV['SMTP_PASS']
+      from_email = ENV['FROM_EMAIL']
+      
+      diagnostics = {
+        env_file_exists: env_exists,
+        env_file_path: env_path,
+        current_dir: Dir.pwd,
+        smtp_host: { set: !smtp_host.nil?, value_preview: smtp_host },
+        smtp_port: { set: !smtp_port.nil?, value_preview: smtp_port },
+        smtp_user: { set: !smtp_user.nil?, is_placeholder: (smtp_user && smtp_user.include?('your-email')), length: smtp_user ? smtp_user.length : 0 },
+        smtp_pass: { set: !smtp_pass.nil?, is_placeholder: (smtp_pass && smtp_pass.include?('your-gmail-app-password')), length: smtp_pass ? smtp_pass.length : 0 },
+        from_email: { set: !from_email.nil?, value_preview: from_email }
+      }
+      
+      res.status = 200
+      res.body = diagnostics.to_json
+    else
+      res.status = 404
+      res.body = { success: false, error: 'Endpoint not found.' }.to_json
+    end
   end
 end
 
@@ -235,6 +269,7 @@ server = WEBrick::HTTPServer.new(
 # Mount endpoints to the Servlet
 server.mount '/api/send-otp', ApiServlet
 server.mount '/api/send-certificate', ApiServlet
+server.mount '/api/diagnose', ApiServlet
 
 # Graceful shutdown handler
 trap 'INT' do 
