@@ -69,7 +69,11 @@ def send_otp_email(to_email, otp)
   EOF
 
   smtp = Net::SMTP.new(smtp_host, smtp_port)
-  smtp.enable_starttls if smtp.respond_to?(:enable_starttls)
+  if smtp_port == 465
+    smtp.tls = true
+  else
+    smtp.enable_starttls if smtp.respond_to?(:enable_starttls)
+  end
   smtp.start('localhost', smtp_user, smtp_pass, :login) do |smtp_conn|
     smtp_conn.send_message(mailtext, smtp_user, to_email)
   end
@@ -150,7 +154,11 @@ def send_certificate_email(to_email, name, college_id, pdf_base64)
   EOF
 
   smtp = Net::SMTP.new(smtp_host, smtp_port)
-  smtp.enable_starttls if smtp.respond_to?(:enable_starttls)
+  if smtp_port == 465
+    smtp.tls = true
+  else
+    smtp.enable_starttls if smtp.respond_to?(:enable_starttls)
+  end
   smtp.start('localhost', smtp_user, smtp_pass, :login) do |smtp_conn|
     smtp_conn.send_message(mailtext, smtp_user, to_email)
   end
@@ -209,7 +217,7 @@ class ApiServlet < WEBrick::HTTPServlet::AbstractServlet
       puts "Server Error: #{e.message}"
       puts e.backtrace.join("\n")
       res.status = 200
-      error_msg = e.message.to_s.force_encoding('UTF-8').scrub
+      error_msg = e.message.to_s.dup.force_encoding('UTF-8').scrub
       res.body = { success: false, error: error_msg }.to_json
     end
   end
