@@ -1,10 +1,16 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    net-protocol (0.2.2)
+      timeout
+    net-smtp (0.5.1)
+      net-protocol
+    timeout (0.6.1)
     webrick (1.9.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  net-smtp
   webrick
